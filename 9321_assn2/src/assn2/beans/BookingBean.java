@@ -1,12 +1,7 @@
-/**
- * 
- */
+
 package assn2.beans;
 
-/**
- * @author Kaihang
- *
- */
-public class BookingBean {
 
+public class BookingBean {
+	//nmmmmmmmasdfsadfsdf
 }

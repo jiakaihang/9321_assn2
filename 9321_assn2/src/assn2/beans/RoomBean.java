@@ -4,7 +4,7 @@
 package assn2.beans;
 
 /**
- * @author Kaihang
+ * @author dd
  *
  */
 public class RoomBean {
