@@ -6,15 +6,13 @@ import java.util.Date;
 
 public class RoomCalendarBean  implements Serializable {
 	int roomcalid;
-	int roomid;
 	int roomtypeid;
 	Timestamp checkindate;
 	Timestamp checkoutdate;
-	public RoomCalendarBean(int roomcalid, int roomid, int roomtypeid,
+	public RoomCalendarBean(int roomcalid, int roomtypeid,
 			Timestamp checkindate, Timestamp checkoutdate) {
 		super();
 		this.roomcalid = roomcalid;
-		this.roomid = roomid;
 		this.roomtypeid = roomtypeid;
 		this.checkindate = checkindate;
 		this.checkoutdate = checkoutdate;
@@ -25,25 +23,19 @@ public class RoomCalendarBean  implements Serializable {
 	public void setRoomcalid(int roomcalid) {
 		this.roomcalid = roomcalid;
 	}
-	public int getRoomid() {
-		return roomid;
-	}
-	public void setRoomid(int roomid) {
-		this.roomid = roomid;
-	}
 	public int getRoomtypeid() {
 		return roomtypeid;
 	}
 	public void setRoomtypeid(int roomtypeid) {
 		this.roomtypeid = roomtypeid;
 	}
-	public Date getCheckindate() {
+	public Timestamp getCheckindate() {
 		return checkindate;
 	}
 	public void setCheckindate(Timestamp checkindate) {
 		this.checkindate = checkindate;
 	}
-	public Date getCheckoutdate() {
+	public Timestamp getCheckoutdate() {
 		return checkoutdate;
 	}
 	public void setCheckoutdate(Timestamp checkoutdate) {
@@ -51,7 +43,7 @@ public class RoomCalendarBean  implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "RoomCalendar [roomcalid=" + roomcalid + ", roomid=" + roomid
+		return "RoomCalendar [roomcalid=" + roomcalid 
 				+ ", roomtypeid=" + roomtypeid + ", checkindate=" + checkindate
 				+ ", checkoutdate=" + checkoutdate + "]";
 	}
@@ -64,7 +56,6 @@ public class RoomCalendarBean  implements Serializable {
 		result = prime * result
 				+ ((checkoutdate == null) ? 0 : checkoutdate.hashCode());
 		result = prime * result + roomcalid;
-		result = prime * result + roomid;
 		result = prime * result + roomtypeid;
 		return result;
 	}
@@ -88,8 +79,6 @@ public class RoomCalendarBean  implements Serializable {
 		} else if (!checkoutdate.equals(other.checkoutdate))
 			return false;
 		if (roomcalid != other.roomcalid)
-			return false;
-		if (roomid != other.roomid)
 			return false;
 		if (roomtypeid != other.roomtypeid)
 			return false;

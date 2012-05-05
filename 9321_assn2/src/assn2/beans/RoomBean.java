@@ -8,6 +8,14 @@ public class RoomBean  implements Serializable {
 	int roomtypeid;
 	String condition;
 	int hotelid;
+	public RoomBean() {
+		super();
+		this.roomid = 0;
+		this.roomno = 0;
+		this.roomtypeid = 0;
+		this.condition = new String();
+		this.hotelid = 0;
+	}
 	public RoomBean(int roomid, int roomno, int roomtypeid, String condition,
 			int hotelid) {
 		super();

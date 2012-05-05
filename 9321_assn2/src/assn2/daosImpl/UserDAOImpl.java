@@ -17,8 +17,13 @@ public class UserDAOImpl implements UserDAO {
 	
 	private DBConnectionFactory services;
 	
-	public UserDAOImpl() throws ServiceLocatorException {
-		services = new DBConnectionFactory();
+	public UserDAOImpl() {
+		try {
+			services = new DBConnectionFactory();
+		} catch (ServiceLocatorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public UserDAOImpl(DBConnectionFactory services) {

@@ -39,7 +39,7 @@ public interface RoomDAO {
 	 * @param end
 	 * @throws DataAccessException
 	 */
-	void setCondition(int id, String cond, Timestamp start, Timestamp end) throws DataAccessException;
+	void setCondition(int id, String cond) throws DataAccessException;
 	
 	/**
 	 * set the condition to the hotels rooms
@@ -49,5 +49,5 @@ public interface RoomDAO {
 	 * @param end
 	 * @throws DataAccessException
 	 */
-	void setConditionByHotel(int id, String cond, Timestamp start, Timestamp end) throws DataAccessException;
+	void setConditionByHotel(int id, String cond) throws DataAccessException;
 }

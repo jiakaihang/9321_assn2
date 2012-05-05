@@ -4,12 +4,13 @@
 package assn2.daosImpl;
 
 import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import java.sql.Timestamp;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,17 +21,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import assn2.beans.BookingBean;
+import assn2.beans.RoomCalendarBean;
 import assn2.database.DBConnectionFactory;
 
 /**
  * @author ASUS
  *
  */
-public class BookingDAOImplTest {
-
-	private BookingDAOImpl bookingdaoimpl;
-
+public class RoomCalDAOImplTest {
+	private RoomCalDAOImpl rcdao;
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
@@ -51,7 +50,7 @@ public class BookingDAOImplTest {
 		ref.add(new StringRefAddr("password", ""));
 		ic.bind("java:/comp/env/jdbc/mydb", ref);
 		//initialize
-		bookingdaoimpl = new BookingDAOImpl(new DBConnectionFactory());
+		rcdao = new RoomCalDAOImpl(new DBConnectionFactory());
 	}
 
 	/**
@@ -71,44 +70,52 @@ public class BookingDAOImplTest {
 		ic.destroySubcontext("java:");
 	}
 
-	/**
-	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#insert(assn2.beans.BookingBean)}.
-	 */
+
+//	//TODO:hand check database
+//	//in order to see result, THIS TEST CAN NOT BE PLAYED WITH NEXT ONE !!
 //	@Test
-//	public void testInsert() {
-//		fail("Not yet implemented");
+//	public void testInsert() throws ParseException {
+//		Timestamp in = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss")).parse("2012-09-01:13-00-00")).getTime());
+//		Timestamp out = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss")).parse("2012-09-01:13-00-00")).getTime());
+//		RoomCalendarBean b = new RoomCalendarBean(6,2,in,out);
+//		rcdao.insert(b);
 //	}
-//
-//	/**
-//	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#delete(int)}.
-//	 */
+
+//	//TODO: hard code id !!!! it may change
 //	@Test
 //	public void testDelete() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#findAllByUser(int)}.
-//	 */
-//	@Test
-//	public void testFindAllByUser() {
-//		fail("Not yet implemented");
+//		rcdao.delete(6);
 //	}
 
 	/**
-	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#getBooking(int)}.
+	 * Test method for {@link assn2.daosImpl.RoomCalDAOImpl#getRoomCalendar(int)}.
 	 * @throws ParseException 
 	 */
 	@Test
-	public void testGetBooking() throws ParseException {
-		BookingBean b1 = bookingdaoimpl.get(3);
+	public void testGetRoomCalendar() throws ParseException {
+		//room calendar id
+		RoomCalendarBean t = rcdao.getRoomCalendar(1);
+		Timestamp in = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-06 13:00:00")).getTime());
+		Timestamp out = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-08 11:00:00")).getTime());
+		RoomCalendarBean e = new RoomCalendarBean(1, 1, in, out);
+		assertEquals(e, t);
+	}
 
-	
-		DateFormat  df = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
-		java.util.Date date = df.parse("2012-09-01:13-00-00");
-		Timestamp ts = new Timestamp(date.getTime());
-		BookingBean b2 = new BookingBean(3,	9,	500.0000, ts);
-		assertEquals(b1,b2);
+	/**
+	 * Test method for {@link assn2.daosImpl.RoomCalDAOImpl#getRoomCalByRoomType(int)}.
+	 * @throws ParseException 
+	 */
+	@Test
+	public void testGetRoomCalByRoomType() throws ParseException {
+		List<RoomCalendarBean> t = rcdao.getRoomCalByRoomType(1);
+		List<RoomCalendarBean> e = new ArrayList<RoomCalendarBean>();
+		
+		Timestamp in = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-06 13:00:00")).getTime());
+		Timestamp out = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-08 11:00:00")).getTime());
+		RoomCalendarBean b1 = new RoomCalendarBean(1, 1, in, out);
+		
+		e.add(b1);
+		assertEquals(e,t);
 	}
 
 }

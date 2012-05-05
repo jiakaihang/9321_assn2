@@ -66,34 +66,34 @@ public class UserDAOImplTest extends TestCase {
 	
 	@Test
 	public void testGet() {
-		UserBean o1 = userdaoimpl.get(1); //to be checked
+		UserBean o1 = userdaoimpl.get(99); //to be checked
 		UserBean o2 = new UserBean(1,"steven","jobs","owner","sj@sj.com","sj","sj","us");
 		assertEquals(o1,o2);
 	}
 	
-	@Test
-	public void testAddandDelete() {
-		//first try delete the 10th record
-		try{
-			userdaoimpl.delete(10);
-		}catch(Exception e){//add normal user
-			e.printStackTrace();
-		}
-		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
-		userdaoimpl.insert(n);
-		UserBean o = userdaoimpl.get(10);
-		assertEquals(n,o);
-		userdaoimpl.delete(10);//cancel out the testing data
-	}
-	
-	public void testFindByLoginDetails() {
-		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
-		userdaoimpl.insert(n);
-		UserBean n1 = userdaoimpl.getByLogin("mh", "mh");
-		assertEquals(n,n1);
-		//clear up
-		userdaoimpl.delete(10);
-		
-	}
+//	@Test
+//	public void testAddandDelete() {
+//		//first try delete the 10th record
+//		try{
+//			userdaoimpl.delete(10);
+//		}catch(Exception e){//add normal user
+//			e.printStackTrace();
+//		}
+//		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
+//		userdaoimpl.insert(n);
+//		UserBean o = userdaoimpl.get(10);
+//		assertEquals(n,o);
+//		userdaoimpl.delete(10);//cancel out the testing data
+//	}
+//	@Test
+//	public void testFindByLoginDetails() {
+//		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
+//		userdaoimpl.insert(n);
+//		UserBean n1 = userdaoimpl.getByLogin("mh", "mh");
+//		assertEquals(n,n1);
+//		//clear up
+//		userdaoimpl.delete(10);
+//		
+//	}
 
 }

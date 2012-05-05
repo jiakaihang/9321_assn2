@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import assn2.beans.HotelBean;
@@ -49,8 +50,34 @@ public class HotelDAOImpl implements HotelDAO {
 	 */
 	@Override
 	public HotelBean getHotel(int id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		try {
+			conn = services.createConnection();
+			PreparedStatement stmt = conn.prepareStatement("select * from Hotel where hotelid = ? ");
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			if (rs == null)//remember to catch the exceptions
+			 	  throw new DataAccessException("cannot find entity of that hotelid");
+			if (rs.next()){
+				HotelBean r = createHotelBean(rs);
+				stmt.close(); //close it
+				return r;
+			}
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();//no connection
+		} catch (SQLException e) {
+			e.printStackTrace();//not execution of statement
+		} finally {
+		      if (conn != null) {
+			         try {
+			           conn.close();//and close the connections etc
+			   		 } catch (SQLException e1) {  //if not close properly
+			           e1.printStackTrace();
+			         }
+			  }
+		}
+		return null; //not found
 	}
 
 	/* (non-Javadoc)
@@ -59,8 +86,33 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public List<HotelBean> getHotelByCity(String city)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<HotelBean> list = new ArrayList<HotelBean>();
+		Connection conn = null;
+		try {
+			conn = services.createConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Hotel WHERE city = ?");
+			stmt.setString(1, city);
+			ResultSet rs = stmt.executeQuery();
+			if (rs == null)//remember to catch the exceptions
+			 	  throw new DataAccessException("cannot find any hotel in that city");
+			while(rs.next()){
+				HotelBean r = createHotelBean(rs);
+				list.add(r);
+			}
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();//no connection
+		} catch (SQLException e) {
+			e.printStackTrace();//not execution of statement
+		} finally {
+				if (conn != null) {
+			         try {
+			           conn.close();//and close the connections etc
+			   		 } catch (SQLException e1) {  //if not close properly
+			           e1.printStackTrace();
+			   		 }
+				}     
+		}
+		return list;
 	}
 
 	/* (non-Javadoc)
@@ -69,8 +121,33 @@ public class HotelDAOImpl implements HotelDAO {
 	@Override
 	public List<HotelBean> getHotelByName(String name)
 			throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<HotelBean> list = new ArrayList<HotelBean>();
+		Connection conn = null;
+		try {
+			conn = services.createConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Hotel WHERE name = ?");
+			stmt.setString(1, name);
+			ResultSet rs = stmt.executeQuery();
+			if (rs == null)//remember to catch the exceptions
+			 	  throw new DataAccessException("cannot find any hotel in that name");
+			while(rs.next()){
+				HotelBean r = createHotelBean(rs);
+				list.add(r);
+			}
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();//no connection
+		} catch (SQLException e) {
+			e.printStackTrace();//not execution of statement
+		} finally {
+				if (conn != null) {
+			         try {
+			           conn.close();//and close the connections etc
+			   		 } catch (SQLException e1) {  //if not close properly
+			           e1.printStackTrace();
+			   		 }
+				}     
+		}
+		return list;
 	}
 
 	/* (non-Javadoc)
@@ -78,8 +155,33 @@ public class HotelDAOImpl implements HotelDAO {
 	 */
 	@Override
 	public List<HotelBean> getHotelByOwner(int id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<HotelBean> list = new ArrayList<HotelBean>();
+		Connection conn = null;
+		try {
+			conn = services.createConnection();
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Hotel WHERE ownerid = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs == null)//remember to catch the exceptions
+			 	  throw new DataAccessException("cannot find any hotel owned by that ownerid");
+			while(rs.next()){
+				HotelBean r = createHotelBean(rs);
+				list.add(r);
+			}
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();//no connection
+		} catch (SQLException e) {
+			e.printStackTrace();//not execution of statement
+		} finally {
+				if (conn != null) {
+			         try {
+			           conn.close();//and close the connections etc
+			   		 } catch (SQLException e1) {  //if not close properly
+			           e1.printStackTrace();
+			   		 }
+				}     
+		}
+		return list;
 	}
 
 	/* (non-Javadoc)
@@ -87,8 +189,45 @@ public class HotelDAOImpl implements HotelDAO {
 	 */
 	@Override
 	public HotelBean getHotelByManager(int id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		try {
+			conn = services.createConnection();
+			PreparedStatement stmt = conn.prepareStatement("select * from Hotel where managerid = ? ");
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			if (rs == null)//remember to catch the exceptions
+			 	  throw new DataAccessException("cannot find entity of that managerid");
+			if (rs.next()){
+				HotelBean r = createHotelBean(rs);
+				stmt.close(); //close it
+				return r;
+			}
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();//no connection
+		} catch (SQLException e) {
+			e.printStackTrace();//not execution of statement
+		} finally {
+		      if (conn != null) {
+			         try {
+			           conn.close();//and close the connections etc
+			   		 } catch (SQLException e1) {  //if not close properly
+			           e1.printStackTrace();
+			         }
+			  }
+		}
+		return null; //not found
+	}
+	
+	public HotelBean createHotelBean(ResultSet rs) throws SQLException {
+		HotelBean h = new HotelBean(rs.getInt("hotelid"), 
+									rs.getString("name"),
+									rs.getString("city"), 
+									rs.getInt("ownerid"), 
+									rs.getInt("managerid"), 
+									rs.getInt("phoneno"), 
+									rs.getString("address"));
+		return h;
 	}
 
 }

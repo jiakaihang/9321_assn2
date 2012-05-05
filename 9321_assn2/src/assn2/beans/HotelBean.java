@@ -2,18 +2,20 @@ package assn2.beans;
 
 import java.io.Serializable;
 
-public class HotelBean  implements Serializable {
+public class HotelBean implements Serializable {
 	int hotlid;
+	String name;
 	String city;
 	int ownerid;
 	int managerid;
 	int phoneno;
 	String address;
 	
-	public HotelBean(int hotlid, String city, int ownerid, int managerid,
+	public HotelBean(int hotlid, String name, String city, int ownerid, int managerid,
 			int phoneno, String address) {
 		super();
 		this.hotlid = hotlid;
+		this.name = name;
 		this.city = city;
 		this.ownerid = ownerid;
 		this.managerid = managerid;

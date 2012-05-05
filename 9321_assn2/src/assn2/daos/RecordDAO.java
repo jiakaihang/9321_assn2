@@ -76,6 +76,6 @@ public interface RecordDAO {
 	 * @return List<RecordBean>
 	 * @throws DataAccessException
 	 */
-	List<RecordBean> getAllByUser(int id) throws DataAccessException;
+	List<RecordBean> getAllByHotel(int id) throws DataAccessException;
 
 }

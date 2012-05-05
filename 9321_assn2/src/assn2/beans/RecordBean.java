@@ -61,13 +61,13 @@ public class RecordBean  implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public Date getCheckindate() {
+	public Timestamp getCheckindate() {
 		return checkindate;
 	}
 	public void setCheckindate(Timestamp checkindate) {
 		this.checkindate = checkindate;
 	}
-	public Date getCheckoutdate() {
+	public Timestamp getCheckoutdate() {
 		return checkoutdate;
 	}
 	public void setCheckoutdate(Timestamp checkoutdate) {

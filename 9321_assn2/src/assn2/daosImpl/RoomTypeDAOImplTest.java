@@ -4,12 +4,8 @@
 package assn2.daosImpl;
 
 import static org.junit.Assert.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import java.sql.Timestamp;
-
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,17 +16,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import assn2.beans.BookingBean;
+import assn2.beans.RoomTypeBean;
+import assn2.daos.RoomTypeDAO;
 import assn2.database.DBConnectionFactory;
 
 /**
  * @author ASUS
  *
  */
-public class BookingDAOImplTest {
-
-	private BookingDAOImpl bookingdaoimpl;
-
+public class RoomTypeDAOImplTest {
+	private RoomTypeDAO rmdao;
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
@@ -51,7 +46,7 @@ public class BookingDAOImplTest {
 		ref.add(new StringRefAddr("password", ""));
 		ic.bind("java:/comp/env/jdbc/mydb", ref);
 		//initialize
-		bookingdaoimpl = new BookingDAOImpl(new DBConnectionFactory());
+		rmdao = new RoomTypeDAOImpl(new DBConnectionFactory());
 	}
 
 	/**
@@ -71,44 +66,38 @@ public class BookingDAOImplTest {
 		ic.destroySubcontext("java:");
 	}
 
-	/**
-	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#insert(assn2.beans.BookingBean)}.
-	 */
-//	@Test
-//	public void testInsert() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#delete(int)}.
-//	 */
-//	@Test
-//	public void testDelete() {
-//		fail("Not yet implemented");
-//	}
-//
-//	/**
-//	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#findAllByUser(int)}.
-//	 */
-//	@Test
-//	public void testFindAllByUser() {
-//		fail("Not yet implemented");
-//	}
 
 	/**
-	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#getBooking(int)}.
-	 * @throws ParseException 
+	 * Test method for {@link assn2.daosImpl.RoomTypeDAOImpl#getRoomType(int)}.
 	 */
 	@Test
-	public void testGetBooking() throws ParseException {
-		BookingBean b1 = bookingdaoimpl.get(3);
+	public void testGetRoomType() {
+		RoomTypeBean c = rmdao.getRoomType(1);
+		RoomTypeBean e = new RoomTypeBean(1, 1, "single", 100.0d, 0, null, null, "single of Hotel 1");
+		assertEquals(c,e);
+	}
 
-	
-		DateFormat  df = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
-		java.util.Date date = df.parse("2012-09-01:13-00-00");
-		Timestamp ts = new Timestamp(date.getTime());
-		BookingBean b2 = new BookingBean(3,	9,	500.0000, ts);
-		assertEquals(b1,b2);
+	/**
+	 * Test method for {@link assn2.daosImpl.RoomTypeDAOImpl#getAllByHotel(int)}.
+	 */
+	@Test
+	public void testGetAllByHotel() {
+		List<RoomTypeBean> c = rmdao.getAllByHotel(1);
+		for (RoomTypeBean roomTypeBean : c) {
+			System.out.println(roomTypeBean);
+		}
+		System.out.println("---------------------");
+	}
+
+	/**
+	 * Test method for {@link assn2.daosImpl.RoomTypeDAOImpl#getAllByType(java.lang.String)}.
+	 */
+	@Test
+	public void testGetAllByType() {
+		List<RoomTypeBean> c = rmdao.getAllByType("single");
+		for (RoomTypeBean roomTypeBean : c) {
+			System.out.println(roomTypeBean);
+		}
 	}
 
 }

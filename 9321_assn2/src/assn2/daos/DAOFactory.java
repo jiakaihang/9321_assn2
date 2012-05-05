@@ -29,7 +29,7 @@ public class DAOFactory {
 	
 	/** Creates a new instance of DAOFactory 
 	 * @throws ServiceLocatorException */
-	private DAOFactory() throws ServiceLocatorException {
+	private DAOFactory() {
 		daos = new HashMap();
 		daos.put(USER_DAO, new UserDAOImpl());
 		daos.put(HOTEL_DAO, new HotelDAOImpl());

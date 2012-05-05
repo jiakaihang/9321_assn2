@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/9321_assn2" docBase="hotel" debug="1" reloadable="true" crossContext="true">
+   <Resource name="jdbc/mydb" auth="Container"
+          type="javax.sql.DataSource" username="root" password=""
+          driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://127.0.0.1:33066/mydb"
+          maxActive="8" maxIdle="4"
+   />
+</Context>
