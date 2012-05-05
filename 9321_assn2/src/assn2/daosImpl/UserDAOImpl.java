@@ -31,16 +31,16 @@ public class UserDAOImpl implements UserDAO {
 	 */
 	public UserBean findByLoginDetails(String username, String password) throws DataAccessException {
 		Connection con = null;
+		UserBean user = null;
 		try {
 			con = services.createConnection();
-			PreparedStatement stmt = con.prepareStatement("select * from users where username = ? and password = ?");
+			PreparedStatement stmt = con.prepareStatement("select * from user where username = (?) and password = (?)");
 			stmt.setString(1, username);
 			stmt.setString(2, password);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				UserBean user = createUserBean(rs);
+				user = createUserBean(rs);
 				stmt.close(); 
-				return user;
 			}
 		} catch (ServiceLocatorException e) {
 			throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
-		return null;
+		return user;
 	}
 	
 	//insert a new record in user table
@@ -64,10 +64,6 @@ public class UserDAOImpl implements UserDAO {
 		   try {
 			 //get the connection 
 			 con = services.createConnection();
-		 	 //create the prepared statement
-//			 Statement st = con.createStatement();
-//			 st.execute("select id from tbl_contacts");
-//			 
 			 PreparedStatement stmt = con.prepareStatement("Insert Into user (userid, fname, lname, security_level, email, username,password,address) values (?, ?, ?, ?, ?, ?,?,?)");
 		     stmt.setInt(1, bean.getUserid());
 		     stmt.setString(2, bean.getFname());
@@ -128,8 +124,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	public void deleteUserBean(int id) {
-		Connection con = null;
-		
+		Connection con = null;	
 		try {
 			 //get the connection 
 			 con = services.createConnection();		 

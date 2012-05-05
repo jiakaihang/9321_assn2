@@ -1,8 +1,12 @@
-package assn2.daosImpl;
 /**
- * Modified on 4th May
+ * 
  */
-import static org.junit.Assert.*;
+package assn2.daosImpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -10,20 +14,26 @@ import javax.naming.Reference;
 import javax.naming.StringRefAddr;
 
 import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import assn2.beans.UserBean;
+import assn2.beans.BookingBean;
 import assn2.database.DBConnectionFactory;
+import assn2.exceptions.DataAccessException;
+import assn2.exceptions.ServiceLocatorException;
 
+/**
+ * @author ASUS
+ *
+ */
+public class BookingDAOImplTest extends TestCase{
+	
+	private BookingDAOImpl bookingdaoimpl;
 
-public class UserDAOImplTest extends TestCase {
-
-	private UserDAOImpl userdaoimpl;
-
-	public UserDAOImplTest(String arg0) {
+	public BookingDAOImplTest(String arg0) {
 		super(arg0);
 	}
 
@@ -47,7 +57,7 @@ public class UserDAOImplTest extends TestCase {
 		ref.add(new StringRefAddr("password", ""));
 		ic.bind("java:/comp/env/jdbc/mydb", ref);
 		//initialize
-		userdaoimpl = new UserDAOImpl(new DBConnectionFactory());
+		bookingdaoimpl = new BookingDAOImpl(new DBConnectionFactory());
 	}
 
 	@After
@@ -63,37 +73,14 @@ public class UserDAOImplTest extends TestCase {
 		ic.destroySubcontext("java:/comp");
 		ic.destroySubcontext("java:");
 	}
-	
 	@Test
-	public void testGet() {
-		UserBean o1 = userdaoimpl.getUserBean(1); //to be checked
-		UserBean o2 = new UserBean(1,"steven","jobs","owner","sj@sj.com","sj","sj","us");
-		assertEquals(o1,o2);
+	public void get() throws DataAccessException {
+		BookingBean b1 = bookingdaoimpl.getBooking(3);
+		//2012-09-01 13:00:00
+		Timestamp t1 = new Timestamp(2012, 9, 1, 13, 0, 0, 0);
+		BookingBean b2 = new BookingBean(3,	9,	500.0000, t1);
+		assertEquals(b1,b2);
 	}
 	
-	@Test
-	public void testAddandDelete() {
-		//first try delete the 10th record
-		try{
-			userdaoimpl.deleteUserBean(10);
-		}catch(Exception e){//add normal user
-			e.printStackTrace();
-		}
-		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
-		userdaoimpl.InsertUserBean(n);
-		UserBean o = userdaoimpl.getUserBean(10);
-		assertEquals(n,o);
-		userdaoimpl.deleteUserBean(10);//cancel out the testing data
-	}
 	
-	public void testFindByLoginDetails() {
-		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
-		userdaoimpl.InsertUserBean(n);
-		UserBean n1 = userdaoimpl.findByLoginDetails("mh", "mh");
-		assertEquals(n,n1);
-		//clear up
-		userdaoimpl.deleteUserBean(10);
-		
-	}
-
 }

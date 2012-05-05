@@ -1,31 +1,35 @@
-package assn2.daosImpl;
 /**
- * Modified on 4th May
+ * 
  */
+package assn2.daosImpl;
+
 import static org.junit.Assert.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.sql.Timestamp;
+
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.Reference;
 import javax.naming.StringRefAddr;
 
-import junit.framework.TestCase;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import assn2.beans.UserBean;
+import assn2.beans.BookingBean;
 import assn2.database.DBConnectionFactory;
 
+/**
+ * @author ASUS
+ *
+ */
+public class BookingDAOImplTest2 {
 
-public class UserDAOImplTest extends TestCase {
-
-	private UserDAOImpl userdaoimpl;
-
-	public UserDAOImplTest(String arg0) {
-		super(arg0);
-	}
+	private BookingDAOImpl bookingdaoimpl;
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,9 +51,12 @@ public class UserDAOImplTest extends TestCase {
 		ref.add(new StringRefAddr("password", ""));
 		ic.bind("java:/comp/env/jdbc/mydb", ref);
 		//initialize
-		userdaoimpl = new UserDAOImpl(new DBConnectionFactory());
+		bookingdaoimpl = new BookingDAOImpl(new DBConnectionFactory());
 	}
 
+	/**
+	 * @throws java.lang.Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
@@ -63,37 +70,46 @@ public class UserDAOImplTest extends TestCase {
 		ic.destroySubcontext("java:/comp");
 		ic.destroySubcontext("java:");
 	}
-	
+
+	/**
+	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#insert(assn2.beans.BookingBean)}.
+	 */
+//	@Test
+//	public void testInsert() {
+//		fail("Not yet implemented");
+//	}
+//
+//	/**
+//	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#delete(int)}.
+//	 */
+//	@Test
+//	public void testDelete() {
+//		fail("Not yet implemented");
+//	}
+//
+//	/**
+//	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#findAllByUser(int)}.
+//	 */
+//	@Test
+//	public void testFindAllByUser() {
+//		fail("Not yet implemented");
+//	}
+
+	/**
+	 * Test method for {@link assn2.daosImpl.BookingDAOImpl#getBooking(int)}.
+	 * @throws ParseException 
+	 */
 	@Test
-	public void testGet() {
-		UserBean o1 = userdaoimpl.getUserBean(1); //to be checked
-		UserBean o2 = new UserBean(1,"steven","jobs","owner","sj@sj.com","sj","sj","us");
-		assertEquals(o1,o2);
-	}
-	
-	@Test
-	public void testAddandDelete() {
-		//first try delete the 10th record
-		try{
-			userdaoimpl.deleteUserBean(10);
-		}catch(Exception e){//add normal user
-			e.printStackTrace();
-		}
-		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
-		userdaoimpl.InsertUserBean(n);
-		UserBean o = userdaoimpl.getUserBean(10);
-		assertEquals(n,o);
-		userdaoimpl.deleteUserBean(10);//cancel out the testing data
-	}
-	
-	public void testFindByLoginDetails() {
-		UserBean n = new UserBean(10,"min","han","user","mh@mh.com","mh","mh","oz");
-		userdaoimpl.InsertUserBean(n);
-		UserBean n1 = userdaoimpl.findByLoginDetails("mh", "mh");
-		assertEquals(n,n1);
-		//clear up
-		userdaoimpl.deleteUserBean(10);
-		
+	public void testGetBooking() throws ParseException {
+		BookingBean b1 = bookingdaoimpl.getBooking(3);
+//		System.out.println(b1);
+		//2012-09-01 13:00:00
+		String str_date="2012-09-01:13-00-00";
+		DateFormat  df = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+		java.util.Date date = df.parse(str_date);
+		Timestamp ts = new Timestamp(date.getTime());
+		BookingBean b2 = new BookingBean(3,	9,	500.0000, ts);
+		assertEquals(b1,b2);
 	}
 
 }

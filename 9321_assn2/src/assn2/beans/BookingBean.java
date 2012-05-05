@@ -2,13 +2,20 @@ package assn2.beans;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class BookingBean  implements Serializable {
 	int bookingid;
 	int userid;
 	double totalprice;
 	Timestamp bookingdate;
+	
+	public BookingBean(){
+		super();
+		bookingid = 0;
+		userid = 0;
+		totalprice = 0.0d;
+		bookingdate = new Timestamp(0L);//big integer
+	}
 	
 	public BookingBean(int bookingid, int userid, double totalprice,
 			Timestamp bookingdate) {
@@ -36,7 +43,7 @@ public class BookingBean  implements Serializable {
 	public void setTotalprice(double totalprice) {
 		this.totalprice = totalprice;
 	}
-	public Date getBookingdate() {
+	public Timestamp getBookingdate() {
 		return bookingdate;
 	}
 	public void setBookingdate(Timestamp bookingdate) {
