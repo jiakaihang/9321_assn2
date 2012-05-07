@@ -135,7 +135,7 @@ public class RecordDAOImpl implements RecordDAO {
 			 PreparedStatement stmt = con.prepareStatement("delete from Record where bookingid=(?)");
 		     stmt.setInt(1, id);
 		     int status = stmt.executeUpdate();
-			 if (status != 1)//remember to catch the exceptions
+			 if (status < 1)//remember to catch the exceptions
 			 	  throw new DataAccessException("cannot delete any record owned by that id");
 			 
 		   } catch (ServiceLocatorException e) {

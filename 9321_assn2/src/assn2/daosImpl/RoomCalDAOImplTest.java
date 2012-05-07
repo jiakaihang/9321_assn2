@@ -97,7 +97,7 @@ public class RoomCalDAOImplTest {
 		RoomCalendarBean t = rcdao.getRoomCalendar(1);
 		Timestamp in = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-06 13:00:00")).getTime());
 		Timestamp out = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-08 11:00:00")).getTime());
-		RoomCalendarBean e = new RoomCalendarBean(1, 1, in, out);
+		RoomCalendarBean e = new RoomCalendarBean(1,1, 1, in, out);
 		assertEquals(e, t);
 	}
 
@@ -112,7 +112,7 @@ public class RoomCalDAOImplTest {
 		
 		Timestamp in = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-06 13:00:00")).getTime());
 		Timestamp out = new Timestamp(((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2012-07-08 11:00:00")).getTime());
-		RoomCalendarBean b1 = new RoomCalendarBean(1, 1, in, out);
+		RoomCalendarBean b1 = new RoomCalendarBean(1,1, 1, in, out);
 		
 		e.add(b1);
 		assertEquals(e,t);

@@ -26,7 +26,7 @@ public class DBConnectionFactoryTest extends TestCase {
          // Construct BasicDataSource reference
          Reference ref = new Reference("javax.sql.DataSource", "org.apache.commons.dbcp.BasicDataSourceFactory", null);
          ref.add(new StringRefAddr("driverClassName", "com.mysql.jdbc.Driver"));
-         ref.add(new StringRefAddr("url", "jdbc:mysql://127.0.0.1:33066/mydb"));
+         ref.add(new StringRefAddr("url", "jdbc:mysql://127.0.0.1:3306/mydb"));
          ref.add(new StringRefAddr("username", "root"));
          ref.add(new StringRefAddr("password", ""));
          ic.bind("java:/comp/env/jdbc/mydb", ref);

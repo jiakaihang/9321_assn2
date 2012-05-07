@@ -45,6 +45,6 @@ public interface BookingDAO {
 	 * @return BookingBean
 	 * @throws DataAccessException
 	 */
-	List<BookingBean> getBookingByUser(int id) throws DataAccessException;
+	BookingBean getBookingByUser(int id) throws DataAccessException;
 
 }

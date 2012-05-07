@@ -29,8 +29,14 @@ public class CmdLogin implements Command {
 		try {
 			UserBean user = login(
 				request.getParameter("username"), request.getParameter("password"));
+			String secLvl = request.getParameterValues("loginType")[0];
+			System.out.println("Login as: "+secLvl);
 			if (user == null) {
-				return "/index.jsp";
+				request.getSession().setAttribute("errorMsg", "Not a Registered User!");
+				return "/error.jsp";
+			} else if (!user.getSecurity_level().equalsIgnoreCase(secLvl)){
+				request.getSession().setAttribute("errorMsg", "Security Level Mismatch");
+				return "/error.jsp";
 			}
 			System.out.println("User info retrieved successfully!\n"+user);
 			HttpSession session = request.getSession();
@@ -38,8 +44,8 @@ public class CmdLogin implements Command {
 			session.setAttribute("user", user);
 
 			// this is not a jsp so it will chain the commands together
-			//return "list";
-			return "/home.jsp";
+			return "listBooking";
+//			return "/home.jsp";
 		} catch (UserLoginFailedException e) {
 			e.printStackTrace();
 			return "/loginfailed.jsp";

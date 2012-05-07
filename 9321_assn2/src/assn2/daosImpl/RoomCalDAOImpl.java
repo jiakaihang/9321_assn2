@@ -1,4 +1,4 @@
-/**
+/** 
  * 
  */
 package assn2.daosImpl;
@@ -108,7 +108,32 @@ public class RoomCalDAOImpl implements RoomCalDAO {
 		         }
 		   }	      
 		}
-		
+	}
+	
+	public void deleteByBooking(int id) throws DataAccessException {
+		Connection con = null;	
+		try {
+			 //get the connection 
+			 con = services.createConnection();		 
+			 PreparedStatement stmt = con.prepareStatement("delete from RoomCalendar where bookingid=(?)");
+		     stmt.setInt(1, id);
+		     int status = stmt.executeUpdate();
+			 if (status < 1)//remember to catch the exceptions
+			 	  throw new DataAccessException("cannot delete any roomcalendar of that bookingid");
+			 
+		   } catch (ServiceLocatorException e) {
+		       throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
+		   } catch (SQLException e) {
+		       throw new DataAccessException("Unable to execute query; " + e.getMessage(), e);
+		   } finally {
+		      if (con != null) {
+		         try {
+		           con.close();//and close the connections etc
+		   		 } catch (SQLException e1) {  //if not close properly
+		           e1.printStackTrace();
+		         }
+		   }	      
+		}
 	}
 
 	/* (non-Javadoc)
@@ -185,6 +210,7 @@ public class RoomCalDAOImpl implements RoomCalDAO {
 	public RoomCalendarBean createRoomCalendarBean(ResultSet rs) throws SQLException {
 		RoomCalendarBean r = new RoomCalendarBean(
 				rs.getInt("roomcalid"), 
+				rs.getInt("bookingid"),
 				rs.getInt("roomtypeid"), 
 				rs.getTimestamp("checkindate"), 
 				rs.getTimestamp("checkoutdate"));

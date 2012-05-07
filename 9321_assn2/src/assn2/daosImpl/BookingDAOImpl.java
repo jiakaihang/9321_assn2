@@ -80,7 +80,7 @@ public class BookingDAOImpl implements BookingDAO {
 		try {
 			conn = services.createConnection();
 			PreparedStatement stmt = conn
-					.prepareStatement("DELETE FROM booking WHERE id = ?");
+					.prepareStatement("DELETE FROM booking WHERE bookingid = ?");
 			stmt.setInt(1, id);
 			int n = stmt.executeUpdate();
 			if (n != 1)// remember to catch the exceptions
@@ -101,9 +101,9 @@ public class BookingDAOImpl implements BookingDAO {
 		}
 	}
 
-	public List<BookingBean> getBookingByUser(int id) throws DataAccessException {
-		List<BookingBean> list = new ArrayList<BookingBean>();
+	public BookingBean getBookingByUser(int id) throws DataAccessException {
 		Connection conn = null;
+		BookingBean r = null;
 		try {
 			conn = services.createConnection();
 			PreparedStatement stmt = conn
@@ -114,8 +114,7 @@ public class BookingDAOImpl implements BookingDAO {
 				throw new DataAccessException(
 						"cannot find any record owned by that id");
 			while (rs.next()) {
-				BookingBean r = createBookingBean(rs);
-				list.add(r);
+				r = createBookingBean(rs);
 			}
 		} catch (ServiceLocatorException e) {
 			e.printStackTrace();// no connection
@@ -125,14 +124,14 @@ public class BookingDAOImpl implements BookingDAO {
 			if (conn != null) {
 				try {
 					conn.close();// and close the connections etc
-				} catch (SQLException e1) { // if not close properly
+				} catch (SQLException e1) { // if not close properly 
 					e1.printStackTrace();
 				}
 			}
 		}
-		return list;
+		return r;
 	}
-
+ 
 	/**
 	 * finds one particular record for the given id Directly return contact
 	 * given by its number

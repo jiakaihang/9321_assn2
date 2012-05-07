@@ -6,16 +6,30 @@ import java.util.Date;
 
 public class RoomCalendarBean  implements Serializable {
 	int roomcalid;
+	int bookingid;
 	int roomtypeid;
 	Timestamp checkindate;
 	Timestamp checkoutdate;
-	public RoomCalendarBean(int roomcalid, int roomtypeid,
+	public RoomCalendarBean(int roomcalid, int bookingid, int roomtypeid,
 			Timestamp checkindate, Timestamp checkoutdate) {
 		super();
 		this.roomcalid = roomcalid;
+		this.bookingid = bookingid;
 		this.roomtypeid = roomtypeid;
 		this.checkindate = checkindate;
 		this.checkoutdate = checkoutdate;
+	}
+	/**
+	 * @return the bookingid
+	 */
+	public int getBookingid() {
+		return bookingid;
+	}
+	/**
+	 * @param bookingid the bookingid to set
+	 */
+	public void setBookingid(int bookingid) {
+		this.bookingid = bookingid;
 	}
 	public int getRoomcalid() {
 		return roomcalid;

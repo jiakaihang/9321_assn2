@@ -23,6 +23,20 @@ public class HotelBean implements Serializable {
 		this.address = address;
 	}
 
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getHotlid() {
 		return hotlid;
 	}

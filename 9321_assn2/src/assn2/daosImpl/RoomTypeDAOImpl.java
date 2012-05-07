@@ -151,6 +151,101 @@ public class RoomTypeDAOImpl implements RoomTypeDAO {
 		return list;
 	}
 	
+	public int getamount (int roomtypeid) {
+		Connection con = null;
+		
+		int amount = 0;
+		   try {
+			 //get the connection 
+			 con = services.createConnection();
+			 PreparedStatement stmt = con.prepareStatement("SELECT amount FROM  `roomtype` WHERE roomtypeid=(?)");
+			 stmt.setInt(1, roomtypeid);
+		     //execute the update
+		     ResultSet rs = stmt.executeQuery();
+		     if (rs == null)//remember to catch the exceptions
+		 	   throw new DataAccessException("Did not get amount");
+		     while(rs.next()){
+		    	 amount = rs.getInt("amount");
+		     }
+		   } catch (ServiceLocatorException e) {
+		       throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
+		   } catch (SQLException e) {
+		       throw new DataAccessException("Unable to execute query; " + e.getMessage(), e);
+		   } finally {
+		      if (con != null) {
+		         try {
+		           con.close();//and close the connections etc
+		   		 } catch (SQLException e1) {  //if not close properly
+		           e1.printStackTrace();
+		         }
+		      }
+		   }
+		   return amount;
+	}
+	
+	public int getroomtypeid(int hotelid, String roomtype){
+		Connection con = null;
+		int tid = 0;
+		   try {
+			 //get the connection 
+			 con = services.createConnection();
+			 PreparedStatement stmt = con.prepareStatement("SELECT * FROM  `roomtype` WHERE type=(?) AND hotelid=(?)");
+			 stmt.setString(1, roomtype);
+			 stmt.setInt(2, hotelid);
+			 //execute the update
+		     ResultSet rs = stmt.executeQuery();
+		     if (rs == null)//remember to catch the exceptions
+		 	   throw new DataAccessException("Did not get rm type id");
+		     while(rs.next()){
+		    	 tid = rs.getInt("roomtypeid");
+		     }
+		   } catch (ServiceLocatorException e) {
+		       throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
+		   } catch (SQLException e) {
+		       throw new DataAccessException("Unable to execute query; " + e.getMessage(), e);
+		   } finally {
+		      if (con != null) {
+		         try {
+		           con.close();//and close the connections etc
+		   		 } catch (SQLException e1) {  //if not close properly
+		           e1.printStackTrace();
+		         }
+		      }
+		   }
+		   return tid;
+	}
+	
+	public double getprice (int roomtypeid) {
+		Connection con = null;
+		double price = 0.0d;
+			try {
+			 //get the connection 
+			 con = services.createConnection();
+			 PreparedStatement stmt = con.prepareStatement("SELECT price FROM  `roomtype` WHERE roomtypeid=(?)");
+			 stmt.setInt(1, roomtypeid);
+		     //execute the update
+		     ResultSet rs = stmt.executeQuery();
+		     if (rs == null)//remember to catch the exceptions
+		 	   throw new DataAccessException("Did not get price");
+		     while(rs.next()){
+		    	 price = rs.getDouble("price");
+		     }
+		   } catch (ServiceLocatorException e) {
+		       throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
+		   } catch (SQLException e) {
+		       throw new DataAccessException("Unable to execute query; " + e.getMessage(), e);
+		   } finally {
+		      if (con != null) {
+		         try {
+		           con.close();//and close the connections etc
+		   		 } catch (SQLException e1) {  //if not close properly
+		           e1.printStackTrace();
+		         }
+		      }
+		   }
+		   return price;
+	}
+	
 	public RoomTypeBean createRoomTypeBean(ResultSet rs) throws SQLException {
 		RoomTypeBean r = new RoomTypeBean(
 				rs.getInt("roomtypeid"), 

@@ -36,8 +36,10 @@ public class ControlServlet extends HttpServlet {
 		commands.put("login", new CmdLogin());
 		commands.put("logout", new CmdLogout());
 		
+		commands.put("search", new CmdSearch());
+		
 		commands.put("PAGE_NOT_FOUND", new CmdError());
-	}
+	} 
 	
 	/** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 * @param request servlet request
@@ -48,11 +50,15 @@ public class ControlServlet extends HttpServlet {
 		Command cmd = resolveCommand(request);
 		//Interface method, result string next is page to be viewed next
 		String next = cmd.execute(request, response);
+		
+		System.out.println("Next = "+next);
+		
 		//if page does not contains "." than treat it as a command
 		if (next.indexOf('.') < 0) {
 			cmd = (Command) commands.get(next);
 			next = cmd.execute(request, response);
-		}		
+		}
+		//System.out.println(request.getSe)
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(next);
 		dispatcher.forward(request, response);
 	}
@@ -61,15 +67,16 @@ public class ControlServlet extends HttpServlet {
 	 * Return command string from HashMap
 	 * @param request
 	 * @return
-	 */
+	 */   
 	private Command resolveCommand(HttpServletRequest request) {
+		System.out.println("Operation = "+request.getParameter("operation"));
 		Command cmd = (Command) commands.get(request.getParameter("operation"));
 		if (cmd == null) {
 			cmd = (Command) commands.get("PAGE_NOT_FOUND");
 		}
 		return cmd;
-	}
-
+	} 
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
