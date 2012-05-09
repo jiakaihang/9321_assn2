@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class RoomTypeBean  implements Serializable {
 	int roomtypeid;
+	int amount;
 	int hotelid;
 	String type;
 	double price;
@@ -14,11 +15,12 @@ public class RoomTypeBean  implements Serializable {
 	Timestamp discountto;  //TODO: maybe not right type
 	String description;
 	
-	public RoomTypeBean(int roomtypeid, int hotelid, String type, double price,
+	public RoomTypeBean(int roomtypeid, int amount, int hotelid, String type, double price,
 			double discountrate, Timestamp discountfrom, Timestamp discountto,
 			String description) {
 		super();
 		this.roomtypeid = roomtypeid;
+		this.amount = amount;
 		this.hotelid = hotelid;
 		this.type = type;
 		this.price = price;
@@ -26,6 +28,20 @@ public class RoomTypeBean  implements Serializable {
 		this.discountfrom = discountfrom;
 		this.discountto = discountto;
 		this.description = description;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public int getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	public int getRoomtypeid() {

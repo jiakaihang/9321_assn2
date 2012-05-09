@@ -249,6 +249,7 @@ public class RoomTypeDAOImpl implements RoomTypeDAO {
 	public RoomTypeBean createRoomTypeBean(ResultSet rs) throws SQLException {
 		RoomTypeBean r = new RoomTypeBean(
 				rs.getInt("roomtypeid"), 
+				rs.getInt("amount"),
 				rs.getInt("hotelid"), 
 				rs.getString("type"), 
 				rs.getDouble("price"), 

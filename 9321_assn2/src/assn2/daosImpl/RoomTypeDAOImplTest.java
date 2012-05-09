@@ -73,7 +73,7 @@ public class RoomTypeDAOImplTest {
 	@Test
 	public void testGetRoomType() {
 		RoomTypeBean c = rmdao.getRoomType(1);
-		RoomTypeBean e = new RoomTypeBean(1, 1, "single", 100.0d, 0, null, null, "single of Hotel 1");
+		RoomTypeBean e = new RoomTypeBean(1, 10, 1, "single", 100.0d, 0, null, null, "single of Hotel 1");
 		assertEquals(c,e);
 	}
 
